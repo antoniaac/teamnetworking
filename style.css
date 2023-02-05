@@ -1,0 +1,43 @@
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: linear-gradient(45deg, #0798abfa, transparent);
+  height: auto;
+}
+
+img {
+  width: 100px;
+  border-radius: 50%;
+  border: 4px white solid;
+}
+
+h1,
+h2 {
+  margin: 5px 0;
+  color: white;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  padding: 8px 8px;
+  justify-content: space-between;
+}
+
+thead {
+  background-color: #00aeef;
+}
+td,
+th {
+  border: 1px solid black;
+}
+table {
+  width: 100%;
+  border: 1px solid black;
+}
