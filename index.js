@@ -9,8 +9,9 @@ function displayTeams(teams) {
       `<tr>
       <td>${team.promotion}</td>
       <td>${team.members}</td>
-      <td>${team.name}Teams Networking</td>
+      <td>${team.name}</td>
       <td>${team.url}</td>
+      <td></td>
     </tr>`
   );
   document.querySelector("#teams tbody").innerHTML = teamsHTML.join("");
