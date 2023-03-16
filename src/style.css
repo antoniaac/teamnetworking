@@ -33,11 +33,27 @@ h2 {
 thead {
   background-color: #00aeef;
 }
-td,
-th {
-  border: 1px solid black;
+
+td {
+  border: 1px solid #00aeef;
+  background-color: #f6fafc;
 }
-table {
+th {
+  border: 1px solid #00aeef;
+  padding: 5px;
+  background-color: #00aeef;
+  color: white;
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+}
+#teams {
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid #00aeef;
+  border-collapse: collapse;
+}
+
+#teams tfoot input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
 }
