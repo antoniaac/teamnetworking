@@ -46,7 +46,7 @@ function readTeam() {
     url: document.getElementById("url").value
   };
 }
-function writeTeam(team) {
+function writeTeam({ promotion, members, name, url }) {
   document.getElementById("promotion").value = team.promotion;
   document.getElementById("members").value = team.members;
   document.getElementById("name").value = team.name;
@@ -134,6 +134,7 @@ function prepareEdit(id) {
   const team = allTeams.find(team => team.id === id);
   editId = id;
   writeTeam(team);
+  team = team;
 }
 
 function initEvents() {
