@@ -71,7 +71,13 @@ function getTeamsHTML(teams) {
     )
     .join("");
 }
+let oldDisplayTeams;
 function displayTeams(teams) {
+  if (oldDisplayTeams === teams) {
+    console.warn("same teams to display", oldDisplayTeams, teams);
+    return;
+  }
+  oldDisplayTeams = teams;
   document.querySelector("#teams tbody").innerHTML = getTeamsHTML(teams);
 }
 
@@ -91,11 +97,16 @@ function onSubmit(e) {
     team.id = editId;
     updateTeamRequest(team).then(status => {
       if (status.success) {
-        window.location.reload();
         // load new teams...?
-        loadTeams();
-        // TODO don't load teams
-        //displayTeams(allTeams);
+        allTeams = [...allTeams];
+        const editedTeam = allTeams.find(team => team.id === editId);
+        console.warn("editedTeam", JSON.stringify(editedTeam), team);
+        editedTeam.promotion = team.promotion;
+        editedTeam.url = team.url;
+        editedTeam.name = team.name;
+        editedTeam.projects = team.projects;
+        allTeams = [...allTeams, team];
+        displayTeams(allTeams);
         e.target.reset();
       }
     });
@@ -106,12 +117,8 @@ function onSubmit(e) {
         //   1.0. adaug id in team
         team.id = status.id;
         //   1.1. addaug team in allTeams
-        allTeams.push(team);
-        //allTeams = [...allTeams, team]
-        //   1.2. apelam displayTeams(allTeams);
+        allTeams = [...allTeams, team];
         displayTeams(allTeams);
-        // 2. stergem datele din inputuri
-        //writeTeam({ promotion: "", name: "", url: "", members: "" });
         e.target.reset();
       }
     });
