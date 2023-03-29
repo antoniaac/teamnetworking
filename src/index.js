@@ -98,14 +98,20 @@ function onSubmit(e) {
     updateTeamRequest(team).then(status => {
       if (status.success) {
         // load new teams...?
-        allTeams = [...allTeams];
-        const editedTeam = allTeams.find(team => team.id === editId);
-        console.warn("editedTeam", JSON.stringify(editedTeam), team);
-        editedTeam.promotion = team.promotion;
-        editedTeam.url = team.url;
-        editedTeam.name = team.name;
-        editedTeam.projects = team.projects;
-        allTeams = [...allTeams, team];
+        // allTeams = [...allTeams];
+        // const editedTeam = allTeams.find(team => team.id === editId);
+        // console.warn("editedTeam", JSON.stringify(editedTeam), team);
+        // editedTeam.promotion = team.promotion;
+        // editedTeam.url = team.url;
+        // editedTeam.name = team.name;
+        // editedTeam.projects = team.projects;
+        allTeams = allTeams.map(t => {
+          if (t.id === team.id) {
+            return t;
+          }
+          return t;
+        });
+
         displayTeams(allTeams);
         e.target.reset();
       }
