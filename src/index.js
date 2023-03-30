@@ -1,3 +1,5 @@
+import { sleep } from "./utilities";
+
 let allTeams = [];
 let editId;
 
@@ -153,6 +155,7 @@ function initEvents() {
       deleteTeamRequest(id).then(status => {
         if (status.success) {
           loadTeams();
+          // TODO do not load all teams..
         }
       });
     } else if (e.target.matches("a.edit-btn")) {
@@ -164,3 +167,16 @@ function initEvents() {
 
 loadTeams();
 initEvents();
+
+// to do move in external file
+console.info("sleep");
+sleep(2000).then(() => {
+  console.info("done1");
+});
+console.warn("after sleep");
+
+(async () => {
+  console.info("sleep2");
+  var r2 = await sleep(5000);
+  console.warn("done2");
+})();
