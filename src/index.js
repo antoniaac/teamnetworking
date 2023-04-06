@@ -61,24 +61,23 @@ async function onSubmit(e) {
   const team = readTeam();
   if (editId) {
     team.id = editId;
-    updateTeamRequest(team).then(status => {
-      if (status.success) {
-        // load new teams...?
-        // allTeams = [...allTeams];
-        allTeams = allTeams.map(t => {
-          if (t.id === team.id) {
-            return {
-              ...t,
-              ...team
-            };
-          }
-          return t;
-        });
+    const status = await updateTeamRequest;
+    if (status.success) {
+      // load new teams...?
+      // allTeams = [...allTeams];
+      allTeams = allTeams.map(t => {
+        if (t.id === team.id) {
+          return {
+            ...t,
+            ...team
+          };
+        }
+        return t;
+      });
 
-        displayTeams(allTeams);
-        e.target.reset();
-      }
-    });
+      displayTeams(allTeams);
+      e.target.reset();
+    }
   } else {
     const status = await createTeamRequest(team);
     if (status.success) {
