@@ -56,7 +56,7 @@ function loadTeams() {
   });
 }
 
-function onSubmit(e) {
+async function onSubmit(e) {
   e.preventDefault();
   const team = readTeam();
   if (editId) {
@@ -65,12 +65,6 @@ function onSubmit(e) {
       if (status.success) {
         // load new teams...?
         // allTeams = [...allTeams];
-        // const editedTeam = allTeams.find(team => team.id === editId);
-        // console.warn("editedTeam", JSON.stringify(editedTeam), team);
-        // editedTeam.promotion = team.promotion;
-        // editedTeam.url = team.url;
-        // editedTeam.name = team.name;
-        // editedTeam.projects = team.projects;
         allTeams = allTeams.map(t => {
           if (t.id === team.id) {
             return {
@@ -86,17 +80,16 @@ function onSubmit(e) {
       }
     });
   } else {
-    createTeamRequest(team).then(status => {
-      if (status.success) {
-        // 1. adaugam datele in table...
-        //   1.0. adaug id in team
-        team.id = status.id;
-        //   1.1. addaug team in allTeams
-        allTeams = [...allTeams, team];
-        displayTeams(allTeams);
-        e.target.reset();
-      }
-    });
+    const status = await createTeamRequest(team);
+    if (status.success) {
+      // 1. adaugam datele in table...
+      //   1.0. adaug id in team
+      team.id = status.id;
+      //   1.1. addaug team in allTeams
+      allTeams = [...allTeams, team];
+      displayTeams(allTeams);
+      e.target.reset();
+    }
   }
 }
 function prepareEdit(id) {
@@ -116,13 +109,6 @@ function initEvents() {
   document.querySelector("#teams tbody").addEventListener("click", async e => {
     if (e.target.matches("a.remove-btn")) {
       const id = e.target.dataset.id;
-      deleteTeamRequest(id).then(status => {
-        if (status.success) {
-          loadTeams();
-          // TODO do not load all teams..
-        }
-      });
-
       const status = await deleteTeamRequest(id);
       if (status.succes) {
         loadTeams();
