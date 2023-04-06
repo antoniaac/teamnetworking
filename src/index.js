@@ -1,4 +1,4 @@
-import { sleep } from "./utilities";
+import { $, sleep } from "./utilities";
 import { loadTeamsRequest, createTeamRequest, deleteTeamRequest, updateTeamRequest } from "./requests";
 
 let allTeams = [];
@@ -40,7 +40,6 @@ function getTeamsHTML(teams) {
 let oldDisplayTeams;
 function displayTeams(teams) {
   if (oldDisplayTeams === teams) {
-    console.warn("same teams to display", oldDisplayTeams, teams);
     return;
   }
   oldDisplayTeams = teams;
@@ -94,11 +93,22 @@ function prepareEdit(id) {
   team = team;
 }
 
+function searchTeams(search) {
+  return allTeams.filter(team => {
+    return team.promotion.indexOf(search) > -1;
+  });
+}
 function initEvents() {
-  const form = document.getElementById("editForm");
+  const form = $("#editForm");
   form.addEventListener("submit", onSubmit);
   form.addEventListener("reset", () => {
     editId = undefined;
+  });
+
+  $("#search").addEventListener("input", e => {
+    const teams = searchTeams(e.target.value);
+    displayTeams(teams);
+    console.info(e.target.value);
   });
 
   document.querySelector("#teams tbody").addEventListener("click", async e => {
